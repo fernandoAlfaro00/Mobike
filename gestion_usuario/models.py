@@ -10,11 +10,6 @@ from django.contrib.auth.models import User
 
 class Funcionario(models.Model):
 
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(self,*args,**kwargs)
-        
-        
         
         
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -29,6 +24,11 @@ class Funcionario(models.Model):
     class Meta:
         verbose_name = 'funcionario'
         verbose_name_plural = 'funcionarios'
+
+
+    def __str__(self):
+
+        return self.user.username
         
         
     
@@ -55,6 +55,11 @@ class  Cliente(models.Model):
     class Meta:
         verbose_name = 'cliente'
         verbose_name_plural = 'clientes'
+
+    
+    def __str__(self):
+
+        return self.user.username
         
         
     

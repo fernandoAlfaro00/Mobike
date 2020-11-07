@@ -1,0 +1,80 @@
+{% extends 'auth_base.html' %}
+
+{% block  title %}
+Registro de Usuarios
+{% endblock %}
+
+{% block content %}
+<div class="card o-hidden border-0 shadow-lg my-5">
+  <div class="card-body p-0">
+    <!-- Nested Row within Card Body -->
+    <div class="row">
+      <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+      <div class="col-lg-7">
+        <div class="p-5">
+          <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">¡Crear Cuenta!</h1>
+          </div>
+          <form class="user" method="POST" novalidate>
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                    {{ form.non_field_errors }} 
+                    </div>
+            {% endif%}
+          
+            <div class="form-group row">
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="text" class="form-control form-control-user" id="id_first_name" name="first_name" placeholder="Nombre">
+              </div>
+              <div class="col-sm-6">
+                <input type="text" class="form-control form-control-user" id="id_last_name" name="last_name" placeholder="Apellido">
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control form-control-user" id="id_email" name="email" placeholder="Email">
+            </div>
+            <div class="form-group row">
+              <div class="col-sm-6 mb-3 mb-sm-0">
+                <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Contraseña">
+              </div>
+              <div class="col-sm-6">
+                <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repetir Contraseña">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-user btn-block">
+              Registrar Cuenta
+            </button>
+            <!-- <hr>
+            <a href="index.html" class="btn btn-google btn-user btn-block">
+              <i class="fab fa-google fa-fw"></i> Register with Google
+            </a>
+            <a href="index.html" class="btn btn-facebook btn-user btn-block">
+              <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+            </a> -->
+            {% if form.errors %}
+            <script type="text/javascript">
+                {% for field in form %}
+                var field_input = document.getElementById("{{ field.auto_id }}");
+                if (field_input) {
+                    field_input.classList.add("is-invalid");
+
+                }
+                {% endfor %}
+            </script>
+
+          {% endif %}
+          </form>
+          <hr>
+          <div class="text-center">
+            <a class="small" href="{% url 'password_reset' %}">¿Olvido la contraseña?</a>
+          </div>
+          <div class="text-center">
+            <a class="small" href="{% url 'login' %}">¿Ya tiene una cuenta? Ingresar Aqui!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -7,6 +7,11 @@ from .forms import UserForm , ClienteForm , FuncionarioForm
 from django.contrib.auth.models import Group , User
 
 
+def home(request):
+    
+    return render(request, 'index.html', {})
+
+
 class CrearFuncionario(View):
     
         
@@ -100,6 +105,7 @@ class ListaFuncionario(ListView):
 
 def ActulizarFuncionario(request , pk): 
     
+    # pylint: disable=maybe-no-member
     funcionario = Funcionario.objects.get(id=pk)
     usuario = User.objects.get(id=funcionario.user.pk)
     

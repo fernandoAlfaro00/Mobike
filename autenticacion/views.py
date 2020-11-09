@@ -31,7 +31,7 @@ def ingresar_datos(request):
 
 def signup(request):
 
-
+    form = PUserForm()
     if request.method == 'POST':
 
         form = PUserForm(request.POST)
@@ -54,11 +54,11 @@ def signup(request):
             do_login(request, user)
 
             return redirect('ingresar_datos')
-    else:
-        
-        form = PUserForm()
-
+         
         return render (request, 'registration/signup.html',{'form':form})
+  
+
+    return render (request, 'registration/signup.html',{'form':form})
 
 
 @login_required

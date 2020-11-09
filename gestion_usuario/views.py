@@ -9,7 +9,7 @@ from django.contrib.auth.models import Group , User
 
 def home(request):
     
-    return render(request, 'index.html', {})
+    return render(request, 'user_base.html', {})
 
 
 class CrearFuncionario(View):
@@ -21,7 +21,7 @@ class CrearFuncionario(View):
             
             func_form =  FuncionarioForm()
             user_form = UserForm()
-            return render (request , 'agregarFuncionario.html', {
+            return render (request , 'AgregarUsuario.html', {
                 'user_form' : user_form,
                 'func_form' :  func_form
             } )
@@ -74,7 +74,7 @@ class CrearFuncionario(View):
 class ListaFuncionario(ListView):
 
     model = Funcionario
-    template_name = 'funcionario_list.html'
+    template_name = 'ListadoUsuario.html'
     paginate_by = 100 
 
 
@@ -129,4 +129,4 @@ def ActulizarFuncionario(request , pk):
             func_form = FuncionarioForm(instance=funcionario)
             user_form =  UserForm(instance=usuario)
 
-    return render(request , 'actualizar_funcionario.html',{'func_form':func_form,'user_form':user_form})
+    return render(request , 'ModificarUsuario.html',{'func_form':func_form,'user_form':user_form})

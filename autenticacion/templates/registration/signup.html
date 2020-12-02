@@ -22,7 +22,7 @@ Registro de Usuarios
                     {{ form.errors }} 
                     </div>
             {% endif%}
-
+                    
           
             <div class="form-group row">
               <div class="col-sm-6 mb-3 mb-sm-0">
@@ -61,6 +61,7 @@ Registro de Usuarios
                 var field_input = document.getElementById("{{ field.auto_id }}");
                 if (field_input) {
                     field_input.classList.add("is-invalid");
+                    
 
                 }
                 {% endfor %}

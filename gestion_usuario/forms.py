@@ -13,6 +13,14 @@ class ClienteForm(forms.ModelForm):
         
         fields = '__all__'
         exclude  = ['user']
+        labels = {
+            'tarjeta' : 'N° tarjeta', 
+            'fecha_nac' : 'Fecha nacimiento',
+        }
+    def __init__(self, *args , **kwargs):
+        super().__init__(*args,**kwargs)
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "form-control" 
 
 class FuncionarioForm(forms.ModelForm):
     """
@@ -24,17 +32,36 @@ class FuncionarioForm(forms.ModelForm):
         
         fields = '__all__'
         exclude  = ['user']
+        widgets = {
+                        
+            'area' : forms.Select(attrs={'class':'form-control'}),
+ 
+            'genero' : forms.Select(attrs={'class':'form-control'}),
+        }
 
 
 class UserForm(UserCreationForm):
     """
     docstring
     """
+
+    
     class Meta:
         
         model = User
-        fields = ('username', 'email', 'password1', 'password2','first_name', 'last_name')
-        exclude= ('email',)
+        fields = ('username', 'email', 'password1','first_name', 'last_name')
+
+
+
+
+    def __init__(self, *args , **kwargs):
+        super().__init__(*args,**kwargs)
+        self.fields.pop('password2')
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "form-control" 
+
+
+        
 
 
     # username = forms.EmailField(max_length=64,

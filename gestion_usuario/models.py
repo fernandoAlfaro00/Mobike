@@ -13,7 +13,6 @@ class Funcionario(models.Model):
         
         
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email_personal = models.EmailField()
     genero =  models.CharField(max_length=20)
     area   =models.CharField(max_length=30)
     
@@ -43,14 +42,29 @@ class  Cliente(models.Model):
         ('PRO' , 'Comuna providencia'),
         ('FL' , 'Comuna la florida')
     ]
+
+    GENERO_CHOICES = [
+        ('M' , 'Masculino'),
+        ('F' , 'Femenino'),
+        ('O' , 'Otro')
+
+
+    ]
+
+    RELACION_CHOICES = [
+        ('T' , 'Trabaja'),
+        ('V' , 'Vive')
+
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     rut = models.CharField(max_length=18)
     fecha_nac =  models.DateField()
     tarjeta = models.CharField(max_length=35)
     domicilio = models.CharField(max_length=31)
-    comuna = models.CharField(max_length=31, choices= COMUNA_CHOICES , default='RE')
-    genero = models.CharField(max_length=10)
-    tipo_relacion =  models.CharField(max_length=10)
+    comuna = models.CharField(max_length=31, choices= COMUNA_CHOICES )
+    genero = models.CharField(max_length=10, choices= GENERO_CHOICES)
+    tipo_relacion =  models.CharField(max_length=10 , choices=RELACION_CHOICES)
+
 
     class Meta:
         verbose_name = 'cliente'

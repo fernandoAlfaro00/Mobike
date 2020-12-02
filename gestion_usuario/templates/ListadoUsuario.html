@@ -51,9 +51,10 @@
             </tr>
           </tfoot>
           <tbody>
+            {% for usuario in object_list %}
             <tr>
-  
-              <td>ATiger Nixon</td>
+            
+              <td>{{ usuario.username }} {{ usuario.last_name}}</td>
               <td>Funcionario</td>
               <td> <span class="status text-success">&bull;</span> Activo</td>
               <td>2020/06/20</td>
@@ -66,6 +67,7 @@
                 <a href="#" class="delete text-danger" title="Delete" data-toggle="tooltip"
                   data-target="#DeleteModal"><i class="material-icons">&#xE872;</i></a>
               </td>
+              {% endfor %}
             </tr>
           </tbody>
         </table>

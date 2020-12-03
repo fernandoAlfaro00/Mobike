@@ -1,0 +1,142 @@
+{% extends  'user_base.html' %}
+{% load static %}
+
+
+
+
+
+
+
+{% block  css %}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
+
+{% endblock %}
+
+
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Listado Bicicletas</h1>
+  <p class="mb-4"></p>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <button class="btn btn-success btn-user">Importar Excel</button>
+
+      <button class="btn btn-danger btn-user">Eliminar Bicicletas Selecionadas</button>
+
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="tablaBici" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+             
+              <th>ID</th>
+              <th>Codigo</th>
+
+              <th>Estado</th>
+
+              <th>Fecha Ingreso</th>
+              <th>Fecha Modificacion </th>
+              <th> Estacion </th>
+              <th>Accion</th>
+
+
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>ID</th>
+              <th>Codigo</th>
+
+              <th>Estado</th>
+
+              <th>Fecha Ingreso</th>
+              <th>Fecha Modificacion </th>
+              <th> Estacion </th>
+              <th>Accion</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for bici in object_list %}
+              <tr>
+                <td>{{ bici.id}}</td>
+                <td>{{ bici.codigo}}</td>
+                
+                <td> 
+                  {% if bici.estado %} 
+                  <span class="status text-success"> &bull;</span> Activa
+                  {% else %}
+                  <span class="status text-muted"> &bull;</span>  Inactiva
+                  {% endif %}
+                </td>
+             
+                <td>{{ bici.fecha_inicio}}</td>
+                <td>{{ bici.fecha_modificacion}}</td>
+                <td>{{ bici.estacion }}</td>
+                <td>
+                  <div class="row ">
+                    <a class="btn btn-primary mr-1 " href="{% url  'detalle_bicicleta' pk=bici.id %}"> <i class="fas fa-eye "></i></a>
+                    
+                  <a  class="btn btn-danger" href="{% url 'eliminar_bicicleta' pk=bici.id %}">  <i class="fas fa-trash "></i></a>
+                  </div>
+                </td>
+
+
+              </tr>
+          
+            {% endfor %}
+           
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- /.container-fluid -->
+
+{% endblock %}
+
+
+
+{% block scripts %}
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+<script>
+
+  $(document).ready(function () {
+
+    $('#tablaBici').DataTable({
+      columnDefs: [{
+        orderable: false,
+        className: 'select-checkbox',
+        targets: 0
+      }],
+      select: {
+        style: 'os',
+        selector: 'td:first-child'
+      },
+      order: [[1, 'asc']]
+    });
+  });
+</script>
+
+
+{% endblock %}
+
+
+

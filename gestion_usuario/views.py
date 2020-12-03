@@ -1,5 +1,6 @@
 from django.utils.crypto import get_random_string
-from django.shortcuts import render, redirect
+from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render, redirect , get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, View
 from django.views.generic.list import ListView
 from django.contrib import messages
@@ -13,9 +14,7 @@ def home(request):
     return render(request, 'user_base.html', {})
 
 
-def CrearUsuario(request):
 
-    pass
 
 
 class CrearFuncionario(View):
@@ -96,14 +95,30 @@ class ListaFuncionario(ListView):
 #         return redirect('home')
 
 
-def ActulizarFuncionario(request, pk):
+def actualizar_usuario(request, pk):
 
     # pylint: disable=maybe-no-member
-    funcionario = Funcionario.objects.get(id=pk)
-    usuario = User.objects.get(id=funcionario.user.pk)
-
-    per_form = FuncionarioForm(instance=funcionario)
+    
+    usuario = get_object_or_404(User,id=pk)
     user_form = UserForm(instance=usuario)
+    try:
+        cliente = Cliente.objects.get(user_id=usuario.id)
+        per_form = ClienteForm(instance=cliente)
+    except ObjectDoesNotExist:
+        return render(request, 'ModificarUsuario.html', {'per_form': per_form, 'user_form': user_form})
+
+    try:
+        cliente = Funcionario.objects.get(user_id=usuario.id)
+        per_form = FuncionarioForm(instance=Funcionario)
+    except ObjectDoesNotExist:
+        return render(request, 'ModificarUsuario.html', {'per_form': per_form, 'user_form': user_form})     
+
+        
+        
+       
+    
+    
+ 
 
     if request.method == 'POST':
 

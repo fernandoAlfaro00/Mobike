@@ -1,0 +1,58 @@
+{% extends  'user_base.html' %}
+{% load static %}
+
+{% block content %}
+        <!-- Begin Page Content -->
+        <div class="container-fluid" style="width: 100%;">
+
+
+          <!-- Page Heading -->
+          <div class="container-fluid text-white bg-primary p-2" style="position: relative; height: 150px; ">
+            <div class="page-header-content">
+              <h1 class="page-header-title mb-2">Ingreso Bicicleta</h1>
+              <div class="page-header-subtitle mb-4">Formulario de registro de Bicicleta</div>
+            </div>
+          </div>
+
+          <div class="container-fluid mt-4" style="position: relative; top: -70px;">
+            <div class="card mb-4 ">
+              <!-- Default Card Example -->
+              <!-- <div class="card-header">
+                    Ingresar Datos Personales
+                  </div> -->
+              <div class="card-body">
+                <form class="user border p-2" id="form-bici" method="POST" novalidate>
+                  {% csrf_token %}
+                  <div class="form-row" id="datos">
+                    <div class="form-group col-md-6">
+                      <label for="nombre">Codigo</label>
+                      <input type="text" class="form-control" id="id_codigo" name="codigo" placeholder="">
+
+                    </div>
+                    <div class="form-group col-md-6">
+
+                      <label for="apellido">Estacion </label>
+                      <input type="text" class="form-control" id="id_estacion" name="estacion" placeholder="">
+                    </div>
+                  </div>
+              
+
+
+                  <div class="text-center">
+                    <button type="submit" style="margin: 30px;" class="col-lg-2 btn btn-primary btn-user">Guarda
+                      Bicicletas</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+        </div>
+        {% endblock %}
+
+
+

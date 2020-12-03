@@ -1,4 +1,12 @@
-<form method="post">{% csrf_token %}
-    <p>Estas Seguro que desea eliminar "{{ object }}"?</p>
-    <input type="submit" value="Confirm">
-</form>
+{% extends  'user_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="center m-5">
+    <form method="post">{% csrf_token %}
+        <p>Estas Seguro que desea eliminar la bicicleta "{{ object }}"?</p>
+        <input class="btn btn-danger" type="submit" value="Confirmar">
+        <a  class="btn btn-primary" href="{% url 'listado_bicicleta' %}">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

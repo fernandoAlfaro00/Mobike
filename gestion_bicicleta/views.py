@@ -2,18 +2,27 @@ from django.shortcuts import render , reverse , get_object_or_404
 from django.urls import reverse_lazy 
 from django.views.generic.detail  import DetailView 
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView , DeleteView 
+from django.views.generic.edit import CreateView, UpdateView , DeleteView  , FormView
 from .models import Bicicleta
+from django.forms import formset_factory  
+from .forms import BicicletaForm
 
-
-class CrearBicicleta(CreateView):
-
+class CrearBicicleta(FormView):
+    form_class = formset_factory(BicicletaForm, extra=2)
     model = Bicicleta
-    fields = ['codigo', 'estacion']
     template_name =  'agregar_bicicleta.html'
+   
 
     def get_success_url(self):
         return reverse('listado_bicicleta')
+
+    def form_valid(self,form):
+
+        for f in form:
+            f.save()
+
+        return super(CrearBicicleta, self).form_valid(form)
+
 
 
 class ModificarBicicleta(UpdateView):

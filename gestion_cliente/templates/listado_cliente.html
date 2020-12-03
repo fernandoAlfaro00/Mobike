@@ -62,17 +62,19 @@
 
               <td> 
                 {% if  usuario.user.is_active %}
+                <span class="status text-success">&bull;</span> Activo
                 {% else %}
-                {% ifend %}
+                <span class="status text-secondary">&bull;</span> Desabilitado
+                {% endif  %}
               </td>
-              <td>2020/06/20</td>
-              <td>2011/04/25</td>
+              <td>{{ usuario.user.last_login }}</td>
+              <td>{{ usuario.user.date_joined }}</td>
               <td>
-                <a href="#" class="view text-primary" title="View" data-toggle="tooltip"><i
+                <a href="{% url 'detalle_cliente' pk=usuario.id %}" class="view text-primary" title="View" data-toggle="tooltip"><i
                     class="material-icons">&#xE417;</i></a>
-                <a href="#" class="edit text-warning" title="Edit" data-toggle="tooltip"><i
+                <a href="{% url 'actualizar_cliente' pk=usuario.id%}" class="edit text-warning" title="Edit" data-toggle="tooltip"><i
                     class="material-icons">&#xE254;</i></a>
-                <a href="#" class="delete text-danger" title="Delete" data-toggle="tooltip"
+                <a href="{% url 'eliminar_cliente' pk=usuario.id%}" class="delete text-danger" title="Delete" data-toggle="tooltip"
                   data-target="#DeleteModal"><i class="material-icons">&#xE872;</i></a>
               </td>
               {% endfor %}

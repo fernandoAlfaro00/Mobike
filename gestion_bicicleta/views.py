@@ -7,6 +7,8 @@ from .models import Bicicleta
 from django.forms import formset_factory  
 from .forms import BicicletaForm
 
+from django.contrib.auth.decorators import login_required
+
 class CrearBicicleta(FormView):
     form_class = formset_factory(BicicletaForm)
     model = Bicicleta
@@ -24,14 +26,15 @@ class CrearBicicleta(FormView):
         return super(CrearBicicleta, self).form_valid(form)
 
 
-
 class ModificarBicicleta(UpdateView):
     model = Bicicleta
-    fields = ['codigo', 'estacion']
+    
+    fields = ['codigo', 'estacion' , 'estado']
     template_name =  'modificar_bicicleta.html'
     
     def get_success_url(self):
         return reverse('listado_bicicleta')
+
 
 class ListaBicicleta(ListView):
 
@@ -39,6 +42,8 @@ class ListaBicicleta(ListView):
     template_name = 'listado_bicicleta.html'
     paginate_by = 100
    
+
+
 class EliminarBicicleta(DeleteView):
     model = Bicicleta
     success_url = reverse_lazy('listado_bicicleta')

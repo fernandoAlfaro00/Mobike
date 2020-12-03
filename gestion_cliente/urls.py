@@ -6,8 +6,8 @@ urlpatterns = [
     path('crear/', CrearCliente.as_view(), name='crear_cliente'),
     path('listado/', ListaCliente.as_view(), name='lista_clientes'),
     path('actualizar/<int:pk>', actualizar_cliente, name='actualizar_cliente'),
-    path('eliminar/<int:pk>', EliminarCliente.as_view(), name='actualizar_cliente'),
-    path('detalle/<int:pk>', DetalleCliente.as_view(), name='actualizar_cliente'),
+    path('eliminar/<int:pk>', EliminarCliente.as_view(), name='eliminar_cliente'),
+    path('detalle/<int:pk>', DetalleCliente.as_view(), name='detalle_cliente'),
 
 
 

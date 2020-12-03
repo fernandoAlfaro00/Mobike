@@ -6,7 +6,7 @@
     <form method="post">{% csrf_token %}
         <p>Estas Seguro que desea eliminar el funcionario "{{ object.user.username }}"?</p>
         <input class="btn btn-danger" type="submit" value="Confirmar">
-        <a  class="btn btn-primary" href="{% url 'lista_usuarios'  %}">Cancelar</a>
+        <a  class="btn btn-primary" href="{% url 'lista_clientes'  %}">Cancelar</a>
     </form>
 </div>
 {% endblock %}

@@ -9,7 +9,7 @@ class BicicletaForm(forms.ModelForm):
         
         model = Bicicleta
         
-        fields = ['codigo', 'estacion']
+        fields = ['codigo', 'estacion'  , 'estado']
     
       
     def __init__(self, *args , **kwargs):

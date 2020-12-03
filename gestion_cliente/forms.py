@@ -1,26 +1,32 @@
 from django import forms
-from .models import  Funcionario
-from django.contrib.auth.models import User 
+from .models import Cliente
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User 
 
-
-
-class FuncionarioForm(forms.ModelForm):
+class ClienteForm(forms.ModelForm):
     """
     docstring
     """
     class Meta:
         
-        model = Funcionario
+        model = Cliente
         
         fields = '__all__'
         exclude  = ['user']
-        widgets = {
-                        
-            'area' : forms.Select(attrs={'class':'form-control'}),
- 
-            'genero' : forms.Select(attrs={'class':'form-control'}),
+        labels = {
+            'tarjeta' : 'N° tarjeta', 
+            'fecha_nac' : 'Fecha nacimiento',
         }
+        widgets  = {
+            'fecha_nac' : forms.DateInput(attrs={'type': 'date'}), 
+        }
+    def __init__(self, *args , **kwargs):
+        super().__init__(*args,**kwargs)
+        for field in self.fields.values():
+        
+            field.widget.attrs["class"] = "form-control"
+
+
 
 
 class UserForm(UserCreationForm):
@@ -42,18 +48,3 @@ class UserForm(UserCreationForm):
         self.fields.pop('password2')
         for field in self.fields.values():
             field.widget.attrs["class"] = "form-control" 
-
-
-        
-
-
-    # username = forms.EmailField(max_length=64,
-    #     help_text = "The person's email address.")
-
-    # def clean_email( self ):
-    #     email= self.cleaned_data['username']
-    #     return email
-
-
-        
-        

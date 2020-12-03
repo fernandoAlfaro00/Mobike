@@ -4,8 +4,8 @@ from django.shortcuts import render, redirect , get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView, View
 from django.views.generic.list import ListView
 from django.contrib import messages
-from .models import Cliente, Funcionario
-from .forms import UserForm, ClienteForm, FuncionarioForm
+from .models import  Funcionario
+from .forms import UserForm,  FuncionarioForm
 from django.contrib.auth.models import Group, User
 
 

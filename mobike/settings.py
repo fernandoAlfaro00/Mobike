@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'gestion_usuario',
     'gestion_bicicleta',
     'autenticacion',
+    'gestion_cliente',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -129,6 +130,6 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

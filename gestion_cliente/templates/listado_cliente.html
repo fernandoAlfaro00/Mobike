@@ -1,0 +1,120 @@
+{% extends  'user_base.html' %}
+{% load static %}
+
+{% block css %}
+
+ <!-- iconos  -->
+ <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+
+ {% endblock %}
+{% block content %}
+<div class="container-fluid">
+          
+
+
+
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Listado Usuarios</h1>
+  <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere perspiciatis odio qui id animi
+    nihil tempora debitis voluptates repellendus, officia ut, cum corrupti quisquam perferendis molestias
+    obcaecati expedita quo exercitationem?</p>
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Usuarios</h6>
+
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Tipo Usuario</th>
+              <th>Estado</th>
+              <th>Ultimo Inicio de sesión</th>
+              <th>Fecha Creacion</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th>Nombre</th>
+              <th>Tipo Usuario</th>
+              <th>Estado</th>
+              <th>Ultimo Inicio de sesión</th>
+              <th>Fecha Creacion</th>
+              <th>Acciones</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for usuario in object_list %}
+            <tr>
+            
+              <td>{{ usuario.username }} {{ usuario.last_name}}</td>
+              <td>Funcionario</td>
+              <td> <span class="status text-success">&bull;</span> Activo</td>
+              <td>2020/06/20</td>
+              <td>2011/04/25</td>
+              <td>
+                <a href="#" class="view text-primary" title="View" data-toggle="tooltip"><i
+                    class="material-icons">&#xE417;</i></a>
+                <a href="#" class="edit text-warning" title="Edit" data-toggle="tooltip"><i
+                    class="material-icons">&#xE254;</i></a>
+                <a href="#" class="delete text-danger" title="Delete" data-toggle="tooltip"
+                  data-target="#DeleteModal"><i class="material-icons">&#xE872;</i></a>
+              </td>
+              {% endfor %}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+  {% endblock %}
+
+  {% block modal %}
+
+  <!-- Delete Modal-->
+  <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">¿Estas seguro que desea Eliminar ?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum hic corporis
+          officiis labore perferendis nemo quo dolorum illum, dolores molestiae officia error suscipit quaerat,
+          laudantium consequuntur nisi deleniti similique explicabo?</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+          <a class="btn btn-danger" href="#">Eliminar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal Delete -->
+  
+  {% endblock %}
+
+
+
+  {% block scripts %}
+
+
+  <!-- Bootstrap core JavaScript-->
+
+  <!-- Page level plugins -->
+  <script src="{% static 'vendor/datatables/jquery.dataTables.min.js'%}"></script>
+  <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
+  {% endblock %}

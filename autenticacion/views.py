@@ -5,8 +5,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from gestion_usuario.models import Cliente
-from gestion_usuario.forms import ClienteForm 
+from gestion_cliente.models import Cliente
+from gestion_cliente.forms import ClienteForm 
 from .forms import PUserForm
 
 

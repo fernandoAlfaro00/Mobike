@@ -2,50 +2,80 @@
 {% load static %}
 
 {% block content %}
-        <!-- Begin Page Content -->
-        <div class="container-fluid" style="width: 100%;">
+<!-- Begin Page Content -->
+<div class="container-fluid" style="width: 100%;">
 
 
-          <!-- Page Heading -->
-          <div class="container-fluid text-white bg-primary p-2" style="position: relative; height: 150px; ">
-            <div class="page-header-content">
-              <h1 class="page-header-title mb-2">Ingreso Bicicleta</h1>
-              <div class="page-header-subtitle mb-4">Formulario de registro de Bicicleta</div>
-            </div>
+  <!-- Page Heading -->
+  <div class="container-fluid text-white bg-primary p-2" style="position: relative; height: 150px; ">
+    <div class="page-header-content">
+      <h1 class="page-header-title mb-2">Ingreso Bicicleta</h1>
+      <div class="page-header-subtitle mb-4">Formulario de registro de Bicicleta</div>
+    </div>
+  </div>
+
+
+
+  <div class="container-fluid mt-4" style="position: relative; top: -70px;">
+    <div class="card mb-4 ">
+      <!-- Default Card Example -->
+
+      <div class="card-body" id="body">
+        <form method="post" novalidate id="form-bici">
+          {% csrf_token %}
+          <div class="contentbici">
+            {{ form.management_form}}
+            {% for f  in  form %}
+            {{ f }}
+
+            {% endfor %}
           </div>
+          <button type="submit">Guardar</button>
 
-          <form method="post">
-            <table>
-                {{ formset }}
-            </table>
         </form>
+        <button onclick="addInput()"> <i class="fas fa-fw fa-plus" ></i> Añadir</button>
+        <p></p>
+        <button onclick="deleteInput()">Delete</button>
+      
+      </div>
+    </div>
 
-          <div class="container-fluid mt-4" style="position: relative; top: -70px;">
-            <div class="card mb-4 ">
-              <!-- Default Card Example -->
-
-              <div class="card-body">
-                <form  method="post" novalidate>
-                  {% csrf_token %}
-                  {{ form.management_form}}
-                  {% for f  in  form %}
-                 {{ f }}
-                
-                {% endfor %}
-                <button type="submit">Guardar</button>
-                </form>
-              </div>
-            </div>
-
-          </div>
+  </div>
 
 
 
 
-        </div>
-        {% endblock %}
+</div>
+{% endblock %}
 
-        {% block scripts %}
-        <script src="{% static 'vendor/jquery.formset.js' %}"></script> 
-        {% endblock %}
 
+{% block scripts %}
+<script>
+  function addInput() {
+    var forms = document.querySelector('#id_form-TOTAL_FORMS')
+    var newinput = document.querySelector('#id_form-0-codigo').cloneNode(true);
+    newinput.name = 'form-' + forms.value + '-codigo';
+    newinput.id = 'id_form-' + forms.value + '-codigo';
+    var newselect = document.querySelector('#id_form-0-estacion').cloneNode(true);
+    newselect.name = 'form-' + forms.value + '-estacion';
+    newselect.id = 'id_form-' + forms.value + 'estacion';
+    document.querySelector('#contentbici').appendChild(newinput);
+    document.querySelector('#contentbici').appendChild(newselect);
+    //
+    var p = document.createElement("p");
+    document.querySelector('#contentbici').appendChild(p);
+    //
+    forms.value = parseInt(forms.value) + 1;
+  }
+  function deleteInput() {
+    var forms = document.querySelector('#id_form-TOTAL_FORMS');
+    forms.value = parseInt(forms.value) - 1;
+    //
+    removeInput = '#id_form-' + forms.value + '-codigo';
+    removeSelect = '#id_form-' + forms.value + '-codigo';
+    document.querySelector(removeInput).remove();
+    document.querySelector(removeSelect).remove();
+  }
+</script>
+<!-- <script src="{% static 'vendor/jquery.formset.js' %}"></script>  -->
+{% endblock %}

@@ -17,7 +17,7 @@ class FuncionarioForm(forms.ModelForm):
         exclude  = ['user']
         widgets = {
                         
-            'area' : forms.Select(attrs={'class':'form-control'}),
+            'area' : forms.TextInput(attrs={'class':'form-control' , 'type':'text'}),
  
             'genero' : forms.Select(attrs={'class':'form-control'}),
         }

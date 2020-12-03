@@ -62,7 +62,7 @@ class CrearCliente(View):
 class ListaCliente(ListView):
 
     model = Cliente
-    template_name = 'ListadoUsuario.html'
+    template_name = 'listado_cliente.html'
     paginate_by = 100
     queryset = User.objects.filter(is_superuser=False)
 

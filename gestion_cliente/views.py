@@ -73,7 +73,7 @@ def actualizar_cliente(request, pk):
 
 
     # pylint: disable=maybe-no-member
-    cliente = get_object_or_404(Cliente,user_id=pk)
+    cliente = get_object_or_404(Cliente,id=pk)
    
     # pylint: disable=maybe-no-member
     usuario = User.objects.get(id=cliente.user.id)

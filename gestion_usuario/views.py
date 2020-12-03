@@ -67,13 +67,13 @@ class ListaFuncionario(ListView):
     model = Funcionario
     template_name = 'lista_funcionario.html'
     paginate_by = 100
-    queryset = User.objects.filter(is_superuser=False)
+
 
 
 def actualizar_Funcionario(request, pk):
 
-    # pylint: disable=maybe-no-member
-    funcionario = get_object_or_404(Funcionario, user_id=pk)
+   
+    funcionario = get_object_or_404(Funcionario, id=pk)
 
     # pylint: disable=maybe-no-member
     usuario = User.objects.get(id=funcionario.user.id)
@@ -90,9 +90,9 @@ def actualizar_Funcionario(request, pk):
 
             usuario = user_form.save()
 
-            Funcionario = func_form.save(commit=False)
+            funcionario = func_form.save(commit=False)
 
-            Funcionario.save()
+            funcionario.save()
 
             func_form = FuncionarioForm(instance=funcionario)
             user_form = UserForm(instance=usuario)
@@ -102,7 +102,7 @@ def actualizar_Funcionario(request, pk):
 
 class EliminarFuncionario(DeleteView):
 
-    template_name = 'eliminar_Funcionario.html'
+    template_name = 'confirmar_eliminacion_funcionario.html'
     model = Funcionario
     success_url = reverse_lazy('lista_Funcionario')
 

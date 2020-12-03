@@ -1,0 +1,106 @@
+{% extends  'user_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid" style="width: 100%;">
+
+
+  <!-- Page Heading -->
+  <div class="container-fluid text-white bg-primary p-2" style="position: relative; height: 150px; ">
+    <div class="page-header-content">
+      <h1 class="page-header-title mb-2">Ingreso Funcionario</h1>
+      <div class="page-header-subtitle mb-4">Formulario de registro de Funcionario</div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt-4" style="position: relative; top: -70px;">
+    <div class="card mb-4 ">
+      <!-- Default Card Example -->
+      <div class="card-header">
+        Ingresar Datos Personales
+      </div>
+      <div class="card-body">
+        <form class="user border p-2" method="POST" novalidate>
+
+
+          {% csrf_token %}
+          {% if user_form.errors %}
+          <div class="alert alert-danger" role="alert">
+            {{ user_form.errors }}
+          </div>
+          {% endif%}
+          
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              {{ user_form.username.label }}
+              {{ user_form.username }}
+            </div>
+
+            <div class="form-group col-md-6">
+
+              {{ user_form.email.label }}
+              {{ user_form.email }}
+            </div>
+          </div>
+
+          <div class="form-row">
+
+            <div class="form-group col-md-6">
+              {{ user_form.first_name.label }}
+              {{ user_form.first_name }}
+            </div>
+            <div class="form-group col-md-6">
+
+
+              {{ user_form.last_name.label }}
+              {{ user_form.last_name }}
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+
+              {{ user_form.password1.label }}
+              {{ user_form.password1 }}
+            </div>
+          </div>
+         
+         <div class="form-row">
+          <div class="form-group col-md-6">
+
+            {{ func_form.genero.label }}
+            {{ func_form.genero }}
+          </div>
+          <div class="form-group col-md-6">
+
+            {{ func_form.area.label }}
+            {{ func_form.area }}
+          </div>
+         </div>
+
+          {% if per_form.errors %}
+          <script type="text/javascript">
+            {% for field in per_form %}
+            var field_input = document.getElementById("{{ field.auto_id }}");
+            if (field_input) {
+              field_input.classList.add("is-invalid");
+
+            }
+            {% endfor %}
+          </script>
+
+          {% endif %}
+          <div class="text-center">
+            <button type="submit" class="col-lg-2 btn btn-primary btn-user">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+</div>
+
+{% endblock %}

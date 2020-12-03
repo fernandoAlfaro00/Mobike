@@ -1,12 +1,12 @@
-from django.utils.crypto import get_random_string
-from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render, redirect , get_object_or_404
-from django.views.generic.edit import CreateView, UpdateView, View
-from django.views.generic.list import ListView
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from .models import  Funcionario
-from .forms import UserForm,  FuncionarioForm
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView, UpdateView, View, DeleteView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.contrib.auth.models import Group, User
+from .models import Funcionario
+from .forms import UserForm,  FuncionarioForm
 
 
 def home(request):
@@ -14,32 +14,29 @@ def home(request):
     return render(request, 'user_base.html', {})
 
 
-
-
-
 class CrearFuncionario(View):
 
     def get(self, request, *args, **kwargs):
 
-        per_form = ClienteForm()
+        func_form = FuncionarioForm()
         user_form = UserForm()
-        return render(request, 'AgregarUsuario.html', {
+        return render(request, 'agregar_funcionario.html', {
             'user_form': user_form,
-            'per_form':  per_form
+            'func_form':  func_form
         })
 
     def post(self, request, *args, **kwargs):
 
-        per_form = ClienteForm(request.POST)
+        func_form = FuncionarioForm(request.POST)
         user_form = UserForm(request.POST)
 
-        if per_form.is_valid() and user_form.is_valid():
+        if func_form.is_valid() and user_form.is_valid():
 
             usuario = user_form.save(commit=False)
             usuario.set_password(user_form.cleaned_data['password1'])
             usuario.save()
 
-            funcionario = per_form.save(commit=False)
+            funcionario = func_form.save(commit=False)
 
             funcionario.user = usuario
 
@@ -50,90 +47,72 @@ class CrearFuncionario(View):
             obj.user_set.add(funcionario.user)
 
             messages.success(request, "Se a Guardado Correctamente")
-            per_form = ClienteForm()
+            func_form = FuncionarioForm()
             user_form = UserForm()
-            return render(request, 'AgregarUsuario.html', {
+            return render(request, 'agregar_funcionario.html', {
                 'user_form': user_form,
-                'per_form':  per_form
+                'func_form':  func_form
             })
 
-        messages.error(request, "Hubo un error al querer crear un Cliente")
+        messages.error(request, "Hubo un error al querer crear un Funcionario")
 
-        return render(request, 'AgregarUsuario.html', {
+        return render(request, 'agregar_funcionario.html', {
             'user_form': user_form,
-            'per_form':  per_form
+            'func_form':  func_form
         })
 
 
 class ListaFuncionario(ListView):
 
-    model = User
-    template_name = 'ListadoUsuario.html'
+    model = Funcionario
+    template_name = 'lista_funcionario.html'
     paginate_by = 100
     queryset = User.objects.filter(is_superuser=False)
- 
-
-# class ActulizarFuncionario(UpdateView):
-
-#     model = Funcionario
-
-#     template_name = 'actualizar_funcionario.html'
-#     form_class  = FuncionarioForm
-#     second_form_class = UserForm
 
 
-#     def get_context_data(self, **kwargs):
-#         context = super(ActulizarFuncionario, self).get_context_data(**kwargs)
-
-
-#         func = self.object
-#         user = User.objects.get(id=func.user.id)
-#         context['form_user'] =  self.second_form_class(instance=user)
-#         return context
-
-#     def get_absolute_url(self):
-#         return redirect('home')
-
-
-def actualizar_usuario(request, pk):
+def actualizar_Funcionario(request, pk):
 
     # pylint: disable=maybe-no-member
-    
-    usuario = get_object_or_404(User,id=pk)
+    funcionario = get_object_or_404(Funcionario, user_id=pk)
+
+    # pylint: disable=maybe-no-member
+    usuario = User.objects.get(id=funcionario.user.id)
+
     user_form = UserForm(instance=usuario)
-    try:
-        cliente = Cliente.objects.get(user_id=usuario.id)
-        per_form = ClienteForm(instance=cliente)
-    except ObjectDoesNotExist:
-        return render(request, 'ModificarUsuario.html', {'per_form': per_form, 'user_form': user_form})
-
-    try:
-        cliente = Funcionario.objects.get(user_id=usuario.id)
-        per_form = FuncionarioForm(instance=Funcionario)
-    except ObjectDoesNotExist:
-        return render(request, 'ModificarUsuario.html', {'per_form': per_form, 'user_form': user_form})     
-
-        
-        
-       
-    
-    
- 
+    func_form = FuncionarioForm(instance=funcionario)
 
     if request.method == 'POST':
 
-        per_form = FuncionarioForm(request.POST, instance=funcionario)
+        func_form = FuncionarioForm(request.POST, instance=funcionario)
         user_form = UserForm(request.POST, instance=usuario)
 
-        if per_form.is_valid() and user_form.is_valid():
+        if func_form.is_valid() and user_form.is_valid():
 
             usuario = user_form.save()
 
-            funcionario = per_form.save(commit=False)
+            Funcionario = func_form.save(commit=False)
 
-            funcionario.save()
+            Funcionario.save()
 
-            per_form = FuncionarioForm(instance=funcionario)
+            func_form = FuncionarioForm(instance=funcionario)
             user_form = UserForm(instance=usuario)
 
-    return render(request, 'ModificarUsuario.html', {'per_form': per_form, 'user_form': user_form})
+    return render(request, 'modifcar_funcionario.html', {'func_form': func_form, 'user_form': user_form})
+
+
+class EliminarFuncionario(DeleteView):
+
+    template_name = 'eliminar_Funcionario.html'
+    model = Funcionario
+    success_url = reverse_lazy('lista_Funcionario')
+
+
+class DetalleFuncionario(DetailView):
+
+    template_name = 'detalle_funcionario.html'
+    model = Funcionario
+    success_url = reverse_lazy('lista_funcionario')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context

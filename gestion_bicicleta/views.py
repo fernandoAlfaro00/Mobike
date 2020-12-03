@@ -8,7 +8,7 @@ from django.forms import formset_factory
 from .forms import BicicletaForm
 
 class CrearBicicleta(FormView):
-    form_class = formset_factory(BicicletaForm, extra=2)
+    form_class = formset_factory(BicicletaForm)
     model = Bicicleta
     template_name =  'agregar_bicicleta.html'
    

@@ -1,9 +1,0 @@
-<h1>Funcionario</h1>
-<ul>
-{% for funcionario in object_list %}
-    <li>{{ funcionario.genero }} - {{ funcionario.area }} - {{ funcionario.user.email}}</li>
-    <a href="{% url 'actualizar_funcionario' funcionario.id %}" >Editar</a>
-{% empty %}
-    <li>No funcionario yet.</li>
-{% endfor %}
-</ul>

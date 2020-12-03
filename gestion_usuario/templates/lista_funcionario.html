@@ -16,7 +16,7 @@
 
 
   <!-- Page Heading -->
-  <h1 class="h3 mb-2 text-gray-800">Listado Usuarios</h1>
+  <h1 class="h3 mb-2 text-gray-800">Listado funcionarios</h1>
   <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere perspiciatis odio qui id animi
     nihil tempora debitis voluptates repellendus, officia ut, cum corrupti quisquam perferendis molestias
     obcaecati expedita quo exercitationem?</p>
@@ -24,7 +24,7 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Usuarios</h6>
+      <h6 class="m-0 font-weight-bold text-primary">funcionarios</h6>
 
     </div>
     <div class="card-body">
@@ -33,7 +33,7 @@
           <thead>
             <tr>
               <th>Nombre</th>
-              <th>Tipo Usuario</th>
+              <th>Tipo funcionario</th>
               <th>Estado</th>
               <th>Ultimo Inicio de sesión</th>
               <th>Fecha Creacion</th>
@@ -43,7 +43,7 @@
           <tfoot>
             <tr>
               <th>Nombre</th>
-              <th>Tipo Usuario</th>
+              <th>Tipo funcionario</th>
               <th>Estado</th>
               <th>Ultimo Inicio de sesión</th>
               <th>Fecha Creacion</th>
@@ -51,10 +51,10 @@
             </tr>
           </tfoot>
           <tbody>
-            {% for usuario in object_list %}
+            {% for funcionario in object_list %}
             <tr>
             
-              <td>{{ usuario.username }} {{ usuario.last_name}}</td>
+              <td>{{ funcionario.username }} {{ funcionario.last_name}}</td>
               <td>Funcionario</td>
               <td> <span class="status text-success">&bull;</span> Activo</td>
               <td>2020/06/20</td>

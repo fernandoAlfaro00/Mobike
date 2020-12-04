@@ -1,17 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-   <form method="post" novalidate>
-    {% csrf_token %}
-    {{ user }}
-    {{cli_form.as_p}}
-    <button type="submit">Guardar datos</button>
+  <div class="container">
+    <div class="m-5">
+        <form method="post" novalidate>
 
-   </form>
+
+
+            {% csrf_token %}
+    
+            <h1> {{ user }}</h1>
+            {{ cli_form|crispy}}
+             
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Guardar datos</button>
+            </div>
+    
+        </form>
+    </div>
+  </div>
 </body>
 </html>

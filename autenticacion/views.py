@@ -24,7 +24,15 @@ def ingresar_datos(request):
         cli_form  = ClienteForm(request.POST)
 
         if cli_form.is_valid():
-            cli_form.save()
+            
+            cliente =  cli_form.save(commit=False)
+
+            usuario = request.user    
+
+            cliente.user = usuario
+
+            cliente.save()
+            
             return redirect('home')
 
     return render(request, 'ingresarDatos.html',{'cli_form': cli_form})

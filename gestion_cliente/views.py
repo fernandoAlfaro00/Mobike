@@ -5,7 +5,7 @@ from django.views.generic.detail import DetailView
 from django.contrib import messages
 from django.contrib.auth.models import Group, User
 from django.urls import reverse_lazy
-from .forms import ClienteForm , UserForm
+from .forms import ClienteForm , UserForm , UserModForm
 from .models import Cliente
 
 
@@ -77,14 +77,14 @@ def actualizar_cliente(request, pk):
     # pylint: disable=maybe-no-member
     usuario = User.objects.get(id=cliente.user.id)
 
-    user_form = UserForm(instance=usuario)
+    user_form = UserModForm(instance=usuario)
     cli_form = ClienteForm(instance=cliente)
     
 
     if request.method == 'POST':
 
         cli_form = ClienteForm(request.POST, instance=cliente)
-        user_form = UserForm(request.POST, instance=usuario)
+        user_form = UserModForm(request.POST, instance=usuario)
 
         if cli_form.is_valid() and user_form.is_valid():
 
@@ -95,9 +95,9 @@ def actualizar_cliente(request, pk):
             cliente.save()
 
             cli_form = ClienteForm(instance=cliente)
-            user_form = UserForm(instance=usuario)
+            user_form = UserModForm(instance=usuario)
 
-    return render(request, 'ModificarUsuario.html', {'cli_form': cli_form, 'user_form': user_form})
+    return render(request, 'modificar_cliente.html', {'cli_form': cli_form, 'user_form': user_form})
 
 
 

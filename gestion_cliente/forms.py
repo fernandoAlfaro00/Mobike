@@ -48,3 +48,28 @@ class UserForm(UserCreationForm):
         self.fields.pop('password2')
         for field in self.fields.values():
             field.widget.attrs["class"] = "form-control" 
+
+
+class UserModForm(forms.ModelForm):
+    """
+    docstring
+    """
+
+    
+    class Meta:
+        
+        model = User
+        fields = ('username', 'email','first_name', 'last_name' , 'is_active')
+        
+
+
+
+    def __init__(self, *args , **kwargs):
+        super().__init__(*args,**kwargs)
+        
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "form-control" 
+
+
+        
+        

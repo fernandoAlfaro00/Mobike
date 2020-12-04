@@ -44,16 +44,25 @@ class UserForm(UserCreationForm):
             field.widget.attrs["class"] = "form-control" 
 
 
+
+
+
+class UserModForm(forms.ModelForm):
+    """
+    docstring
+    """
+
+    
+    class Meta:
+        
+        model = User
+        fields = ('username', 'email','first_name', 'last_name' , 'is_active')
         
 
 
-    # username = forms.EmailField(max_length=64,
-    #     help_text = "The person's email address.")
 
-    # def clean_email( self ):
-    #     email= self.cleaned_data['username']
-    #     return email
-
-
+    def __init__(self, *args , **kwargs):
+        super().__init__(*args,**kwargs)
         
-        
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "form-control" 

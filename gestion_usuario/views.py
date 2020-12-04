@@ -6,7 +6,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.models import Group, User
 from .models import Funcionario
-from .forms import UserForm,  FuncionarioForm
+from .forms import UserForm,  FuncionarioForm , UserModForm
 
 
 def home(request):
@@ -78,13 +78,13 @@ def actualizar_Funcionario(request, pk):
     # pylint: disable=maybe-no-member
     usuario = User.objects.get(id=funcionario.user.id)
 
-    user_form = UserForm(instance=usuario)
+    user_form = UserModForm(instance=usuario)
     func_form = FuncionarioForm(instance=funcionario)
 
     if request.method == 'POST':
 
         func_form = FuncionarioForm(request.POST, instance=funcionario)
-        user_form = UserForm(request.POST, instance=usuario)
+        user_form = UserModForm(request.POST, instance=usuario)
 
         if func_form.is_valid() and user_form.is_valid():
 
@@ -95,7 +95,7 @@ def actualizar_Funcionario(request, pk):
             funcionario.save()
 
             func_form = FuncionarioForm(instance=funcionario)
-            user_form = UserForm(instance=usuario)
+            user_form = UserModForm(instance=usuario)
 
     return render(request, 'modifcar_funcionario.html', {'func_form': func_form, 'user_form': user_form})
 

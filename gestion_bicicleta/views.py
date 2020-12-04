@@ -5,14 +5,15 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, UpdateView , DeleteView  , FormView
 from .models import Bicicleta
 from django.forms import formset_factory  
-from .forms import BicicletaForm
+from .forms import BicicletaForm , BicicletaListForm
 
 from django.contrib.auth.decorators import login_required
 
 class CrearBicicleta(FormView):
-    form_class = formset_factory(BicicletaForm)
+    form_class = formset_factory(BicicletaListForm)
     model = Bicicleta
     template_name =  'agregar_bicicleta.html'
+    
    
 
     def get_success_url(self):
@@ -41,6 +42,7 @@ class ListaBicicleta(ListView):
     model = Bicicleta
     template_name = 'listado_bicicleta.html'
     paginate_by = 100
+    
    
 
 

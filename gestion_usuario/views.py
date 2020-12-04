@@ -97,6 +97,8 @@ def actualizar_Funcionario(request, pk):
             func_form = FuncionarioForm(instance=funcionario)
             user_form = UserModForm(instance=usuario)
 
+            redirect('lista_usuario')
+
     return render(request, 'modifcar_funcionario.html', {'func_form': func_form, 'user_form': user_form})
 
 
